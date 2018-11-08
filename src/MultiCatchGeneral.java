@@ -3,7 +3,7 @@ import java.sql.Connection;
 class MyCustomException extends Exception {
 }
 
-class CatchMultiExceptions {
+class GeneralCatchMultiExceptions {
 	void myMethod(Connection con, String fileName) {
 		try {
 			// code   -> Code that might throw MyCustomException, FileNotFoundException or SQLException
