@@ -33,11 +33,11 @@ public class TryWithResources {
 	void readFileContents3(String fileName) {
 		File file = new File(fileName);
 
-		// will throw IOException for auto-closeable resource
-		try (FileInputStream fin = new FileInputStream(file)) {
+		// multiple resources can be added seperated with a semicolon " ; "
+		try (FileInputStream fin = new FileInputStream(file); FileInputStream fin1 = new FileInputStream(file)) {
 			// do stuff
 		} catch (IOException e) { // includes subclass FileNotFoundException
-
+			System.out.println(fin.read()); // fin is not available anymore, implicit close in try
 		}
 	}
 
@@ -48,6 +48,24 @@ public class TryWithResources {
 		// no catch or finally block which is required by a regular try-catch block!
 		try (FileInputStream fin = new FileInputStream(file)) {
 			// do stuff
+		}
+	}
+
+	void readFileContents5(String fileName) throws IOException {
+		File file = new File(fileName);
+
+		try (FileInputStream fin) { //won't compile! needs to be initialized implicitly final
+			// do stuff
+		}
+	}
+
+	void readFileContents6(String fileName) throws IOException {
+		File file = new File(fileName);
+
+		try (FileInputStream fin = null) { // acceptable, though implicitly final
+			// do stuff
+			fin.read();// nullpointer
+			fin = new FileInputStream(file); // won't compile fin is final!
 		}
 	}
 }
