@@ -35,8 +35,8 @@ class GenericTypeRethrowException3 {
 			// do funky stuff
 		} catch (FileNotFoundException e) { // subclass of IOException
 			throw  e;
-		} 
-		
+		}
+
 	}
 
 }
